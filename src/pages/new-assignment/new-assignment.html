@@ -1,0 +1,39 @@
+<ion-header>
+	<ion-navbar color="dark">
+		<ion-title>Nuevo remolque</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-card>
+		<div id='map' #map></div>
+		<ion-item>
+			<ion-avatar item-left>
+				<img src='assets/img/user-pic.jpg' />
+			</ion-avatar>
+			<h2><b>Sebastian Gonzalez</b></h2>
+			<h3>Arroyo Abra Vieja</h3>
+			<p> 18 min (5 km)</p>
+		</ion-item>
+			<ion-row>
+				<ion-col>
+					<button ion-button color="primary" clear icon-left text-uppercase>
+                <ion-icon name='navigate'></ion-icon>
+                Aceptar
+            </button>
+				</ion-col>
+				<ion-col text-center>
+					<div class="circle center">
+				<div class="count">{{countdown}}</div>
+				<div class="l-half"></div>
+				<div class="r-half"></div>
+			</div>
+				</ion-col>
+				<ion-col text-right>
+					<button ion-button color="danger" clear icon-left text-uppercase (click)="cancel()">
+                <ion-icon name='close-circle'></ion-icon>
+                Cancelar
+            </button>
+				</ion-col>
+			</ion-row>
+	</ion-card>
+</ion-content>

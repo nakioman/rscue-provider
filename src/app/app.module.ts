@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Ionic2RatingModule } from 'ionic2-rating';
+import { NewAssignmentPage } from '../pages/new-assignment/new-assignment';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     MyApp,
     HomePage,
     TabsPage,
+    NewAssignmentPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -21,6 +23,7 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     MyApp,
     HomePage,
     TabsPage,
+    NewAssignmentPage
   ],
   providers: []
 })

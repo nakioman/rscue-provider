@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { ModalController, NavParams } from 'ionic-angular';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NewAssignmentPage } from '../new-assignment/new-assignment';
 
 @Component({
   selector: 'page-home',
@@ -9,6 +10,11 @@ import { NavController, NavParams } from 'ionic-angular';
 export class HomePage {
   rate:number = 3;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController, public navParams: NavParams) {
+  }
+
+  openModal() {
+    let modal = this.modalCtrl.create(NewAssignmentPage);
+    modal.present();
   }
 }

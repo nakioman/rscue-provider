@@ -15,7 +15,7 @@
 				<rating [(ngModel)]="rate" max="5" readOnly="true"></rating>
 				<ion-item no-padding>
 					<ion-label>En servicio</ion-label>
-					<ion-toggle checked="true"></ion-toggle>
+					<ion-toggle checked="true" (click)="openModal()"></ion-toggle>
 				</ion-item>
 			</ion-card-title>
 		</ion-card-content>
