@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 declare var google: any;
 
+import { UserInfoPage } from '../user-info/user-info';
+
 @Component({
     selector: 'page-current-assignment',
     templateUrl: 'current-assignment.html'
@@ -19,22 +21,22 @@ export class CurrentAssignmentPage {
     ionViewWillEnter() {
         this.loadMap();
         this.setupCurrentPositionTracking();
-        this.setupUserPositionMarker();                                
+        this.setupUserPositionMarker();
     }
 
     loadMap() {
         let location = new google.maps.LatLng(-34.41341, -58.55984);
-        this.map = new google.maps.Map(this.mapElement.nativeElement, 
+        this.map = new google.maps.Map(this.mapElement.nativeElement,
         {
             center: location,
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.TERRAIN,
-            zoomControl: true, 
+            zoomControl: true,
             mapTypeControl: false,
             streetViewControl: false
-        });  
+        });
     }
-    
+
     setupCurrentPositionTracking() {
         Geolocation.getCurrentPosition().then(position => {
             //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -50,8 +52,8 @@ export class CurrentAssignmentPage {
             this.fitBounds();
         });
         Geolocation.watchPosition().subscribe(position => {
-            //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);    
-            //this.currentPositionMarker.setPosition(latLng);       
+            //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            //this.currentPositionMarker.setPosition(latLng);
         });
     }
 
@@ -78,5 +80,9 @@ export class CurrentAssignmentPage {
     endAssignment() {
         this.navCtrl.pop();
     }
-    
+
+    userInfo() {
+      this.navCtrl.push(UserInfoPage);
+    }
+
 }

@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { NewAssignmentPage } from '../pages/new-assignment/new-assignment';
 import { CurrentAssignmentPage } from '../pages/current-assignment/current-assignment';
+import { UserInfoPage } from '../pages/user-info/user-info';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CurrentAssignmentPage } from '../pages/current-assignment/current-assig
     HomePage,
     TabsPage,
     NewAssignmentPage,
-    CurrentAssignmentPage
+    CurrentAssignmentPage,
+    UserInfoPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -27,7 +29,8 @@ import { CurrentAssignmentPage } from '../pages/current-assignment/current-assig
     HomePage,
     TabsPage,
     NewAssignmentPage,
-    CurrentAssignmentPage
+    CurrentAssignmentPage,
+    UserInfoPage
   ],
   providers: []
 })
