@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ViewController, Platform } from 'ionic-angular';
+import { ViewController, Platform, NavController } from 'ionic-angular';
 declare var google;
+
+import { CurrentAssignmentPage } from '../current-assignment/current-assignment';
 
 @Component({
     selector: 'page-new-assignment',
@@ -12,7 +14,7 @@ export class NewAssignmentPage {
     providerLocationMarker: any;
     countdown: number = 60;
 
-    constructor(public viewCtrl: ViewController, public platform: Platform) {
+    constructor(public viewCtrl: ViewController, public platform: Platform, public navCtrl: NavController) {
         this.platform.registerBackButtonAction(() => {
             this.cancel();
         });
@@ -63,6 +65,11 @@ export class NewAssignmentPage {
     }
 
     cancel() {
-        this.viewCtrl.dismiss();
+        this.viewCtrl.dismiss('cancel');
+    }
+
+    accept() { 
+        this.navCtrl.setRoot(CurrentAssignmentPage);
+        this.viewCtrl.dismiss('accept');
     }
 }

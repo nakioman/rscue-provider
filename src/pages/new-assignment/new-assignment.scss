@@ -3,6 +3,10 @@ $w: 5;
 $t: 60;
 
 page-new-assignment {
+    .scroll-content {
+        height: 100%
+    }
+    
     #map {
         height: 300px;
         margin: 10px 10px 0 10px;

@@ -1,0 +1,35 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Remolque en progreso</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-card class="user-card">
+		<ion-item>
+			<ion-avatar item-left>
+				<img src='assets/img/user-pic.jpg' />
+			</ion-avatar>
+			<h2>Sebastian Gonzalez</h2>
+			<p><button ion-button color="secondary" clear small icon-left no-padding no-margin>
+        <ion-icon name='information-circle'></ion-icon>
+        Perfil
+      </button></p>
+		</ion-item>
+		<ion-row>
+			<ion-col>
+<button ion-button color="primary" clear small icon-left (click)="endAssignment()">
+        <ion-icon name='checkmark'></ion-icon>
+        Finalizar
+      </button>
+			</ion-col>
+			<ion-col text-right>
+				<button ion-button color="danger" clear small icon-left>
+        <ion-icon name='close'></ion-icon>
+        Cancelar
+      </button>
+			</ion-col>
+		</ion-row>
+	</ion-card>
+	<div id='map' #map></div>
+</ion-content>

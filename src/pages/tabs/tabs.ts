@@ -3,7 +3,6 @@ import { NativePageTransitions, TransitionOptions } from 'ionic-native';
 import { Platform } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
-import { NewAssignmentPage } from '../new-assignment/new-assignment';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -12,7 +11,6 @@ export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
   tabHomeRoot: any = HomePage;
-  tabHistoryRoot: any = NewAssignmentPage;
 
   constructor(public platform: Platform) {
   }
@@ -33,4 +31,6 @@ export class TabsPage {
       NativePageTransitions.slide(options);
     }
   }
+
+  
 }
