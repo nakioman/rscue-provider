@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Ionic2RatingModule } from 'ionic2-rating';
 
 import { MyApp } from './app.component';
@@ -32,6 +32,8 @@ import { UserInfoPage } from '../pages/user-info/user-info';
     CurrentAssignmentPage,
     UserInfoPage
   ],
-  providers: []
+  // Here we tell the Angular ErrorHandling class
+  // that it should be using the IonicErrorHandler class for any errors
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
-export class AppModule {}
+export class AppModule { }
