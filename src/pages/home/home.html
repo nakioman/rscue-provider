@@ -1,23 +1,22 @@
 <ion-header>
-	<ion-navbar color="primary">
-		<ion-title>Inicio</ion-title>
-	</ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>Inicio</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
-	<ion-card>
-		<div padding>
-			<img src="assets/img/provider-pic.png" />
-		</div>
-		<ion-card-content no-padding>
-			<ion-card-title text-center>
-				Martin García
-				<rating [(ngModel)]="rate" max="5" readOnly="true"></rating>
-				<ion-item no-padding>
-					<ion-label>En servicio</ion-label>
-					<ion-toggle checked="true" (click)="openModal()"></ion-toggle>
-				</ion-item>
-			</ion-card-title>
-		</ion-card-content>
-	</ion-card>
+  <ion-card>
+    <div padding>
+      <img src="{{auth.profile?.imageBase64}}" />
+    </div>
+    <ion-card-content no-padding>
+      <ion-card-title text-center>
+        {{auth.profile?.name}} {{auth.profile?.lastName}}
+        <ion-item no-padding>
+          <ion-label>En servicio</ion-label>
+          <ion-toggle checked="true" (click)="openModal()"></ion-toggle>
+        </ion-item>
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
