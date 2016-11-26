@@ -14,7 +14,7 @@
         {{auth.profile?.name}} {{auth.profile?.lastName}}
         <ion-item no-padding>
           <ion-label>En servicio</ion-label>
-          <ion-toggle checked="true" (click)="openModal()"></ion-toggle>
+          <ion-toggle [checked]="auth.profile?.inService" (click)="toggleInService()"></ion-toggle>
         </ion-item>
       </ion-card-title>
     </ion-card-content>

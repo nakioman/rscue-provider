@@ -16,6 +16,7 @@ import { UserInfoPage } from '../pages/user-info/user-info';
 import { ConnectivityService } from '../services/connectivity/connectivity';
 import { PermissionsService } from '../services/permissions/permissions';
 import { AuthService } from '../services/auth/auth';
+import { TrackLocationService } from '../services/track-location/track-location';
 
 let storage = new Storage();
 
@@ -63,6 +64,7 @@ export function getAuthHttp(http) {
     AuthService,
     ConnectivityService,
     PermissionsService,
+    TrackLocationService
   ]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ export class ProfileModel {
   public phoneNumber: string;
   public id: string;
   public imageBase64: string;
+  public inService: boolean;
 
   constructor() {
     this.imageBase64 = 'assets/img/nobody.jpg';

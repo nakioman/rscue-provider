@@ -62,7 +62,8 @@
     "cordova-sqlite-storage",
     "cordova-plugin-inappbrowser",
     "cordova-plugin-file",
-    "cordova-plugin-file-transfer"
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-mauron85-background-geolocation"
   ],
   "cordovaPlatforms": [
     {
