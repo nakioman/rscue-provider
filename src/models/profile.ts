@@ -7,6 +7,7 @@ export class ProfileModel {
   public id: string;
   public imageBase64: string;
   public inService: boolean;
+  public status: string;
 
   constructor() {
     this.imageBase64 = 'assets/img/nobody.jpg';

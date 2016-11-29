@@ -6,7 +6,7 @@
   <hook src="hooks/010_add_android_keystore_config.js" type="after_platform_add"/>
   <hook src="hooks/010_add_platform_class.js" type="after_prepare"/>
   <engine name="android" spec="https://github.com/apache/cordova-android.git#6.1.0"/>
-  <content src="http://10.147.64.50:8100" original-src="index.html"/>
+  <content src="index.html"/>
   <access origin="*"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
@@ -58,4 +58,5 @@
     <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME"/>
   </plugin>
   <allow-navigation href="http://10.147.64.50:8100"/>
+  <allow-navigation href="http://192.168.0.102:8000"/>
 </widget>

@@ -6,7 +6,7 @@ import Auth0 from 'auth0-js';
 import Auth0Lock from 'auth0-lock';
 import { ProfileModel } from '../../models/profile';
 import { AlertController, ModalController, Platform } from 'ionic-angular';
-import { File, Transfer, Splashscreen } from 'ionic-native';
+import { Splashscreen } from 'ionic-native';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +31,7 @@ export class AuthService {
   idToken: string;
   profile: ProfileModel;
 
-  constructor(private authHttp: AuthHttp, zone: NgZone, private storage: Storage,
+  constructor(public authHttp: AuthHttp, zone: NgZone, private storage: Storage,
     private alertCtrl: AlertController, private modalCtrl: ModalController, private platform: Platform) {
     this.zoneImpl = zone;
 
@@ -184,29 +184,18 @@ export class AuthService {
     }
   }
 
-  getProfile(clientId: string): Promise<ProfileModel> {
-    return new Promise((resolve, reject) => {
-      this.storage.get('profile').then(profile => {
-        if (profile) {
-          this.profile = profile;
-          resolve(this.profile);
-        } else {
-          this.getApiProfile(clientId).then((profile) => resolve(profile))
-            .catch(err => reject(err));
-        }
-      }).catch(() => {
-        this.getApiProfile(clientId).then(profile => resolve(profile))
-          .catch(err => reject(err));
-      });
-    });
-  }
-
-  getApiProfile(workerId: string): Promise<ProfileModel> {
+  getProfile(workerId: string): Promise<ProfileModel> {
     return new Promise((resolve, reject) => {
       this.authHttp.get(API_URL + 'worker/' + workerId).subscribe(data => {
         this.profile = data.json();
-        this.storage.set('profile', data.json());
         resolve(this.profile);
+      }, err => reject(err));
+    });
+  }
+
+  updateProfile(profile: ProfileModel): Promise<ProfileModel> {
+    return new Promise((resolve, reject) => {
+      this.authHttp.put(`${API_URL}worker/${profile.id}`, profile).subscribe(data => {
       }, err => reject(err));
     });
   }
@@ -230,40 +219,16 @@ export class AuthService {
 
   getAvatar(): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (this.platform.is('cordova')) {
-        let fs: string = cordova.file.dataDirectory;
-        File.checkFile(fs, 'profile.base64').then(result => {
-          this.profile.imageBase64 = `${fs}profile.base64`;
-          resolve();
-        }).catch(err => {
-          if (this.profile.avatarUri) {
-            let fileTransfer = new Transfer();
-            fileTransfer.download(this.profile.avatarUri, `${fs}profile.base64`)
-              .then(() => {
-                this.profile.imageBase64 = `${fs}profile.base64`;
-                resolve();
-              }).catch(err => {
-                this.profile.imageBase64 = 'assets/img/nobody.jpg';
-                resolve();
-              });
-          } else {
-            this.profile.imageBase64 = 'assets/img/nobody.jpg';
-            resolve();
-          }
-        });
-      } else {
-        if (this.profile.avatarUri) {
-          if (this.profile.avatarUri.indexOf('http://') === 0 || this.profile.avatarUri.indexOf('https://') === 0) {
-            this.profile.imageBase64 = this.profile.avatarUri;
-          } else {
-            this.profile.imageBase64 = 'assets/img/nobody.jpg';
-          }
+      if (this.profile.avatarUri) {
+        if (this.profile.avatarUri.indexOf('http://') === 0 || this.profile.avatarUri.indexOf('https://') === 0) {
+          this.profile.imageBase64 = this.profile.avatarUri;
         } else {
           this.profile.imageBase64 = 'assets/img/nobody.jpg';
         }
-        resolve();
+      } else {
+        this.profile.imageBase64 = 'assets/img/nobody.jpg';
       }
+      resolve();
     });
   }
-
 }

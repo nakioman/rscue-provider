@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BackgroundGeolocation, Geoposition, Geolocation } from 'ionic-native';
 import { Platform } from 'ionic-angular';
+import { AuthService } from '../auth/auth';
+import { LocationModel } from '../../models/location';
 
 @Injectable()
 export class TrackLocationService {
@@ -19,10 +21,13 @@ export class TrackLocationService {
   };
   watch: any;
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform, private auth: AuthService) {
+    console.log(this.auth.auth0User);
+    console.log(this.auth.authHttp);
     this.platform.ready().then(() => {
       BackgroundGeolocation.configure((location) => {
-        console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
+        let model: LocationModel = { longitude: location.longitude, latitude: location.latitude };
+        this.auth.authHttp.put(`${API_URL}worker/${this.auth.auth0User['user_id']}/location`, model).subscribe();
       }, (err) => console.log(err), this.BgConfig);
 
     });
@@ -31,12 +36,11 @@ export class TrackLocationService {
   startTracking() {
     this.platform.ready().then(() => {
       BackgroundGeolocation.start();
-      this.watch = Geolocation.watchPosition(this.FgConfig).subscribe(this.getPosition);
+      this.watch = Geolocation.watchPosition(this.FgConfig).subscribe((location: Geoposition) => {
+        let model: LocationModel = { longitude: location.coords.longitude, latitude: location.coords.latitude };
+        this.auth.authHttp.put(`${API_URL}worker/${this.auth.auth0User['user_id']}/location`, model).subscribe();
+      });
     });
-  }
-
-  getPosition(location: Geoposition) {
-    console.log('ForeGroundGeolocation:  ' + location.coords.latitude + ',' + location.coords.longitude);
   }
 
   stopTracking() {

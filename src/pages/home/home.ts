@@ -12,10 +12,14 @@ export class HomePage {
 
   toggleInService() {
     this.auth.profile.inService = !this.auth.profile.inService;
+    let profile = this.auth.profile;
     if (this.auth.profile.inService) {
       this.trackLocation.startTracking();
+      profile.status = 'Working';
     } else {
       this.trackLocation.stopTracking();
+      profile.status = 'Offline';
     }
+    this.auth.updateProfile(profile);
   }
 }
