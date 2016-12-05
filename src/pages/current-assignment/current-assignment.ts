@@ -42,7 +42,7 @@ export class CurrentAssignmentPage {
     this.map = new google.maps.Map(this.mapElement.nativeElement,
       {
         center: location,
-        zoom: 15,
+        zoom: 13,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         zoomControl: true,
         mapTypeControl: false,

@@ -5,29 +5,29 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <div padding>
-      <img src="{{client.avatarUri ? client.avatarUri : 'assets/img/nobody.jpg'}}" />
-    </div>
-    <ion-card-content no-padding>
-      <ion-card-title text-center>
-        {{client.name}} {{client.lastName}}
-      </ion-card-title>
-      <ion-list no-lines>
-        <a href="mailto:{{client.email}}" ion-item detail-none *ngIf="client.email">
-          <ion-icon name="mail" item-left></ion-icon>
-          {{client.email}}
-        </a>
-        <a ion-item detail-none href="tel:{{client.phoneNumber}}">
-          <ion-icon name="call" item-left></ion-icon>
-          {{client.phoneNumber}}
-        </a>
-        <a ion-item detail-none href="#">
-          <ion-icon name="boat" item-left></ion-icon>
-          {{client.boatModel}} {{client.engineType}}
-        </a>
-      </ion-list>
-
-    </ion-card-content>
-  </ion-card>
+  <div padding text-center>
+    <img src="{{client.avatarUri ? client.avatarUri : 'assets/img/nobody.jpg'}}" />
+  </div>
+  <div *ngIf="client.name">
+    <h3 text-center>
+      {{client.name}} {{client.lastName}}
+    </h3>
+    <ion-list no-lines>
+      <a href="mailto:{{client.email}}" ion-item detail-none *ngIf="client.email">
+        <ion-icon name="mail" item-left></ion-icon>
+        {{client.email}}
+      </a>
+      <a ion-item detail-none href="tel:{{client.phoneNumber}}">
+        <ion-icon name="call" item-left></ion-icon>
+        {{client.phoneNumber}}
+      </a>
+      <a ion-item detail-none href="#">
+        <ion-icon name="boat" item-left></ion-icon>
+        {{client.boatModel}} {{client.engineType}}
+      </a>
+    </ion-list>
+  </div>
+  <div text-center *ngIf="!client.name">
+    <ion-spinner></ion-spinner>
+  </div>
 </ion-content>
