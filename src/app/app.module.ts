@@ -17,6 +17,8 @@ import { ConnectivityService } from '../services/connectivity/connectivity';
 import { PermissionsService } from '../services/permissions/permissions';
 import { AuthService } from '../services/auth/auth';
 import { TrackLocationService } from '../services/track-location/track-location';
+import { PushNotificationsService } from '../services/push/push';
+import { AssignmentService } from '../services/assignment/assignment';
 
 let storage = new Storage();
 
@@ -64,7 +66,9 @@ export function getAuthHttp(http) {
     AuthService,
     ConnectivityService,
     PermissionsService,
-    TrackLocationService
+    TrackLocationService,
+    PushNotificationsService,
+    AssignmentService
   ]
 })
 export class AppModule { }

@@ -58,7 +58,14 @@
     "cordova-plugin-inappbrowser",
     "cordova-plugin-file",
     "cordova-plugin-file-transfer",
-    "cordova-plugin-mauron85-background-geolocation"
+    "cordova-plugin-mauron85-background-geolocation",
+    {
+      "id": "phonegap-plugin-push",
+      "locator": "phonegap-plugin-push",
+      "variables": {
+        "SENDER_ID": "324400947816"
+      }
+    }
   ],
   "cordovaPlatforms": [
     {

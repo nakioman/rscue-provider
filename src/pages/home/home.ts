@@ -15,7 +15,7 @@ export class HomePage {
     let profile = this.auth.profile;
     if (this.auth.profile.inService) {
       this.trackLocation.startTracking();
-      profile.status = 'Working';
+      profile.status = 'Idle';
     } else {
       this.trackLocation.stopTracking();
       profile.status = 'Offline';

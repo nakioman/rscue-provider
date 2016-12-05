@@ -8,11 +8,10 @@
 		<div id='map' #map></div>
 		<ion-item>
 			<ion-avatar item-left>
-				<img src='assets/img/user-pic.jpg' />
+				<img src='{{assignment.clientAvatarUri}}' />
 			</ion-avatar>
-			<h2><b>Sebastian Gonzalez</b></h2>
-			<h3>Arroyo Abra Vieja</h3>
-			<p> 18 min (5 km)</p>
+			<h2><b>{{assignment.clientName}}</b></h2>
+			<h3>{{assignment.latitude}}, {{assignment.longitude}}</h3>
 		</ion-item>
 			<ion-row>
 				<ion-col>

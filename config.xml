@@ -57,6 +57,10 @@
     <variable name="ACCOUNT_TYPE" value="$PACKAGE_NAME.account"/>
     <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME"/>
   </plugin>
+  <plugin name="phonegap-plugin-push" spec="~1.9.1">
+    <variable name="SENDER_ID" value="324400947816"/>
+  </plugin>
   <allow-navigation href="http://10.147.64.50:8100"/>
   <allow-navigation href="http://192.168.0.102:8000"/>
+  <allow-navigation href="http://192.168.0.104:8000"/>
 </widget>

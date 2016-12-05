@@ -22,8 +22,6 @@ export class TrackLocationService {
   watch: any;
 
   constructor(private platform: Platform, private auth: AuthService) {
-    console.log(this.auth.auth0User);
-    console.log(this.auth.authHttp);
     this.platform.ready().then(() => {
       BackgroundGeolocation.configure((location) => {
         let model: LocationModel = { longitude: location.longitude, latitude: location.latitude };

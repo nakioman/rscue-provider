@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NativePageTransitions, TransitionOptions } from 'ionic-native';
 import { Platform } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
+import { CurrentAssignmentPage } from '../current-assignment/current-assignment';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -12,7 +13,10 @@ export class TabsPage {
   // should be each tab's root Page
   tabHomeRoot: any = HomePage;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, private storage: Storage) {
+    platform.ready().then(() => {
+      this.setRootPage();
+    });
   }
 
   transitionPage() {
@@ -32,5 +36,14 @@ export class TabsPage {
     }
   }
 
-  
+  private setRootPage() {
+    this.storage.get('assignmentId').then(value => {
+      if (value) {
+        this.tabHomeRoot = CurrentAssignmentPage;
+        // this.nav.setRoot(CurrentAssignmentPage, { id: value });
+      }
+    })
+  }
+
+
 }
