@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NativePageTransitions, TransitionOptions } from 'ionic-native';
-import { Platform } from 'ionic-angular';
+import { Platform, Tabs, Tab } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { CurrentAssignmentPage } from '../current-assignment/current-assignment';
@@ -9,14 +9,16 @@ import { CurrentAssignmentPage } from '../current-assignment/current-assignment'
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
+  @ViewChild("tabs") tabs: Tabs;
+  @ViewChild("homeTab") homeTab: Tab;
+  @ViewChild("currentAssignmentTab") currentAssignmentTab: Tab;
+
   // this tells the tabs component which Pages
   // should be each tab's root Page
   tabHomeRoot: any = HomePage;
+  tabCurrentAssignmentpage: any = CurrentAssignmentPage;
 
   constructor(public platform: Platform, private storage: Storage) {
-    platform.ready().then(() => {
-      this.setRootPage();
-    });
   }
 
   transitionPage() {
@@ -36,13 +38,21 @@ export class TabsPage {
     }
   }
 
+  ionViewWillEnter() {
+    this.platform.ready().then(() => {
+      this.setRootPage();
+    });
+  }
+
   private setRootPage() {
+    this.storage.set('assignmentId', '58455b761d553000013e2307');
     this.storage.get('assignmentId').then(value => {
       if (value) {
-        this.tabHomeRoot = CurrentAssignmentPage;
-        // this.nav.setRoot(CurrentAssignmentPage, { id: value });
+        this.homeTab.show = false;
+        this.currentAssignmentTab.show = true;
+        this.tabs.select(1);
       }
-    })
+    });
   }
 
 

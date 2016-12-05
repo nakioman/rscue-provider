@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController, Tabs, Platform } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 declare var google: any;
 import { UserInfoPage } from '../user-info/user-info';
@@ -19,15 +19,20 @@ export class CurrentAssignmentPage {
   assignment: AssignmentModel;
 
 
-  constructor(public navCtrl: NavController, private storage: Storage, private assignmentService: AssignmentService) {
+  constructor(public navCtrl: NavController, private storage: Storage, private assignmentService: AssignmentService,
+    private alertCtrl: AlertController, private platform: Platform) {
     this.assignment = new AssignmentModel();
   }
 
   ionViewWillEnter() {
-    this.storage.get('assignmentId').then(value => {
-      this.assignmentService.get(value).then(value => {
-        this.assignment = value;
-        this.loadMap();
+    this.platform.ready().then(() => {
+      this.storage.get('assignmentId').then(value => {
+        if (value) {
+          this.assignmentService.get(value).then(value => {
+            this.assignment = value;
+            this.loadMap();
+          });
+        }
       });
     });
   }
@@ -48,7 +53,7 @@ export class CurrentAssignmentPage {
   }
 
   setupCurrentPositionTracking() {
-    Geolocation.getCurrentPosition().then(position => {
+    Geolocation.getCurrentPosition({ enableHighAccuracy: true, maximumAge: 15000 }).then(position => {
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       this.currentPositionMarker = new google.maps.Marker({
         position: latLng,
@@ -59,6 +64,8 @@ export class CurrentAssignmentPage {
         title: 'I might be here'
       });
       this.fitBounds();
+    }).catch((err) => {
+      console.log(err);
     });
     Geolocation.watchPosition().subscribe(position => {
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -86,12 +93,39 @@ export class CurrentAssignmentPage {
     this.map.fitBounds(bounds);
   }
 
+  cancelAssignment() {
+    let alert = this.alertCtrl.create({
+      title: 'Cancelar misión',
+      message: 'Esta seguro de cancelar la misión?',
+      buttons: [{
+        text: 'No',
+        role: 'cancel'
+      },
+      {
+        text: 'Si',
+        handler: () => {
+          this.assignmentService.setStatus(this.assignment.id, 'Cancelled');
+          this.storage.remove('assignmentId');
+          this.setupHomeTab();
+        }
+      }]
+    });
+    alert.present();
+  }
+
   endAssignment() {
     this.navCtrl.pop();
   }
 
   userInfo() {
-    this.navCtrl.push(UserInfoPage);
+    this.navCtrl.push(UserInfoPage, { id: this.assignment.clientId });
+  }
+
+  setupHomeTab() {
+    let tabs: Tabs = this.navCtrl.parent;
+    tabs.getByIndex(0).show = true;
+    tabs.getByIndex(1).show = false;
+    tabs.select(0);
   }
 
 }

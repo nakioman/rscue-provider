@@ -3,12 +3,13 @@
   "app_id": "",
   "v2": true,
   "typescript": true,
+  "defaultBrowser":"chrome",
   "proxies": [{
     "path": "/worker",
-    "proxyUrl": "http://localhost:5000/worker"
+    "proxyUrl": "https://api.rscue.center/worker"
   },
   {
     "path": "/assignment",
-    "proxyUrl": "http://localhost:5000/assignment"
+    "proxyUrl": "https://api.rscue.center/assignment"
   }]
 }

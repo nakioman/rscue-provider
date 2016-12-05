@@ -4,4 +4,5 @@ export class AssignmentModel {
   latitude: number;
   longitude: number;
   clientAvatarUri: string;
+  clientId: string;
 }

@@ -1,34 +1,33 @@
 <ion-header>
-	<ion-navbar color="primary">
-		<ion-title>Perfil</ion-title>
-	</ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>Perfil</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
-	<ion-card>
-		<div padding>
-			<img src="assets/img/user-pic.jpg" />
-		</div>
-		<ion-card-content no-padding>
-			<ion-card-title text-center>
-				Sebastian Gonzalez
-			</ion-card-title>
-			<ion-list no-lines>
-				<a href="mailto:seba@test.com" ion-item detail-none>
-					<ion-icon name="mail" item-left></ion-icon>
-					seba@test.com
-				</a>
-				<a ion-item detail-none href="tel:+5491167435388">
-					<ion-icon name="call" item-left></ion-icon>
-					+54 9 11 67435388
-				</a>
+  <ion-card>
+    <div padding>
+      <img src="{{client.avatarUri ? client.avatarUri : 'assets/img/nobody.jpg'}}" />
+    </div>
+    <ion-card-content no-padding>
+      <ion-card-title text-center>
+        {{client.name}} {{client.lastName}}
+      </ion-card-title>
+      <ion-list no-lines>
+        <a href="mailto:{{client.email}}" ion-item detail-none *ngIf="client.email">
+          <ion-icon name="mail" item-left></ion-icon>
+          {{client.email}}
+        </a>
+        <a ion-item detail-none href="tel:{{client.phoneNumber}}">
+          <ion-icon name="call" item-left></ion-icon>
+          {{client.phoneNumber}}
+        </a>
         <a ion-item detail-none href="#">
           <ion-icon name="boat" item-left></ion-icon>
-          Quicksilver 490
-          Mercury 60
+          {{client.boatModel}} {{client.engineType}}
         </a>
-			</ion-list>
+      </ion-list>
 
-		</ion-card-content>
-	</ion-card>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

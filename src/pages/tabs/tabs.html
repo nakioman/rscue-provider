@@ -1,5 +1,6 @@
-<ion-tabs  animation="slide-left-right" (ionChange)="transitionPage()">
-  <ion-tab [root]="tabHomeRoot" tabTitle="Inicio" tabIcon="home"></ion-tab>
-  <ion-tab tabTitle="Historial" tabIcon="list"></ion-tab>  
-  <ion-tab tabTitle="Configuración" tabIcon="settings"></ion-tab>  
+<ion-tabs #tabs  animation="slide-left-right" (ionChange)="transitionPage()">
+  <ion-tab #homeTab [root]="tabHomeRoot" tabTitle="Inicio" tabIcon="home"></ion-tab>
+  <ion-tab #currentAssignmentTab show="false" [root]="tabCurrentAssignmentpage" tabTitle="Inicio" tabIcon="home"></ion-tab>
+  <ion-tab tabTitle="Historial" tabIcon="list"></ion-tab>
+  <ion-tab tabTitle="Configuración" tabIcon="settings"></ion-tab>
 </ion-tabs>

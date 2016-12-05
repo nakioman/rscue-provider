@@ -23,11 +23,18 @@ export class TrackLocationService {
 
   constructor(private platform: Platform, private auth: AuthService) {
     this.platform.ready().then(() => {
-      BackgroundGeolocation.configure((location) => {
-        let model: LocationModel = { longitude: location.longitude, latitude: location.latitude };
-        this.auth.authHttp.put(`${API_URL}worker/${this.auth.auth0User['user_id']}/location`, model).subscribe();
-      }, (err) => console.log(err), this.BgConfig);
-
+      if (!this.platform.is('core')) {
+        BackgroundGeolocation.isLocationEnabled().then(value => {
+          if (value === 0) {
+            BackgroundGeolocation.showLocationSettings();
+          } else {
+            BackgroundGeolocation.configure((location) => {
+              let model: LocationModel = { longitude: location.longitude, latitude: location.latitude };
+              this.auth.authHttp.put(`${API_URL}worker/${this.auth.auth0User['user_id']}/location`, model).subscribe();
+            }, (err) => console.log(err), this.BgConfig);
+          };
+        });
+      }
     });
   }
 

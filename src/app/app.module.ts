@@ -14,11 +14,11 @@ import { CurrentAssignmentPage } from '../pages/current-assignment/current-assig
 import { UserInfoPage } from '../pages/user-info/user-info';
 
 import { ConnectivityService } from '../services/connectivity/connectivity';
-import { PermissionsService } from '../services/permissions/permissions';
 import { AuthService } from '../services/auth/auth';
 import { TrackLocationService } from '../services/track-location/track-location';
 import { PushNotificationsService } from '../services/push/push';
 import { AssignmentService } from '../services/assignment/assignment';
+import { ClientService } from '../services/client/client';
 
 let storage = new Storage();
 
@@ -65,10 +65,10 @@ export function getAuthHttp(http) {
     Storage,
     AuthService,
     ConnectivityService,
-    PermissionsService,
     TrackLocationService,
     PushNotificationsService,
-    AssignmentService
+    AssignmentService,
+    ClientService
   ]
 })
 export class AppModule { }

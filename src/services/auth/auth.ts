@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import Auth0 from 'auth0-js';
 import Auth0Lock from 'auth0-lock';
@@ -30,11 +30,12 @@ export class AuthService {
   zoneImpl: NgZone;
   idToken: string;
   profile: ProfileModel;
+  profileLoaded: EventEmitter<boolean>;
 
   constructor(public authHttp: AuthHttp, zone: NgZone, private storage: Storage,
     private alertCtrl: AlertController, private modalCtrl: ModalController, private platform: Platform) {
     this.zoneImpl = zone;
-
+    this.profileLoaded = new EventEmitter<boolean>();
     this.lock.on('authenticated', authResult => {
       this.storage.set('id_token', authResult.idToken);
       this.idToken = authResult.idToken;
@@ -143,10 +144,11 @@ export class AuthService {
         this.auth0.refreshToken(token, (err, delegationRequest) => {
           if (err) {
             reject(err);
+          } else {
+            this.storage.set('id_token', delegationRequest.id_token);
+            this.idToken = delegationRequest.id_token;
+            resolve();
           }
-          this.storage.set('id_token', delegationRequest.id_token);
-          this.idToken = delegationRequest.id_token;
-          resolve();
         });
       }).catch(error => {
         console.log(error);
@@ -188,6 +190,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.authHttp.get(API_URL + 'worker/' + workerId).subscribe(data => {
         this.profile = data.json();
+        this.profile.inService = this.profile.status === 'Idle';
         resolve(this.profile);
       }, err => reject(err));
     });
@@ -204,7 +207,10 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       let clientId = this.auth0User['user_id'];
       this.getProfile(clientId).then(() => {
-        this.getAvatar().then(() => resolve());
+        this.getAvatar().then(() => {
+          this.profileLoaded.emit(true);
+          resolve();
+        });
       }).catch(err => {
         let errorAlert = this.alertCtrl.create({
           enableBackdropDismiss: false,
